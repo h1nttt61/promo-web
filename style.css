@@ -299,3 +299,22 @@ body {
     border-color: #3B82F6;
     color: #3B82F6;
 }
+.light-theme .name-h2 {
+    background: linear-gradient(45deg, #059669, #2563EB, #7C3AED);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.light-theme .btn-primary {
+    background: linear-gradient(45deg, #2563EB, #7C3AED);
+}
+
+.light-theme .btn-outline {
+    border-color: #2563EB;
+    color: #2563EB;
+}
+
+.light-theme .btn-outline:hover {
+    background-color: rgba(37, 99, 235, 0.1);
+}
