@@ -64,28 +64,45 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     const themeSwitcher = function() {
-        const themeButton = document.querySelector('.theme-btn');
+    const themeButton = document.querySelector('.theme-btn');
+    
+    if (!themeButton) {
+        console.error('Кнопка темы не найдена!');
+        return;
+    }
+    
+
+    const switchTheme = function() {
+        const isLightTheme = document.body.classList.contains('light-theme');
+        const targetTheme = !isLightTheme;
         
-        if (!themeButton) {
-            console.error('Кнопка темы не найдена!');
-            return;
-        }
-        
-        themeButton.addEventListener('click', function() {
-            document.body.classList.toggle('light-theme');
-            this.innerHTML = document.body.classList.contains('light-theme') ? '☀️' : '🌙';
+
+        document.body.classList.add('theme-transitioning');
+                requestAnimationFrame(() => {
+            if (targetTheme) {
+                document.body.classList.add('light-theme');
+                themeButton.innerHTML = '☀️';
+            } else {
+                document.body.classList.remove('light-theme');
+                themeButton.innerHTML = '🌙';
+            }
             
-            // Сохраняем тему в localStorage
-            localStorage.setItem('theme', document.body.classList.contains('light-theme') ? 'light' : 'dark');
+            localStorage.setItem('theme', targetTheme ? 'light' : 'dark');
+            
+            setTimeout(() => {
+                document.body.classList.remove('theme-transitioning');
+            }, 500);
         });
-        
-        // Восстанавливаем тему при загрузке
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'light') {
-            document.body.classList.add('light-theme');
-            themeButton.innerHTML = '☀️';
-        }
     };
+    
+    themeButton.addEventListener('click', switchTheme);
+    
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light') {
+        document.body.classList.add('light-theme');
+        themeButton.innerHTML = '☀️';
+    }
+};
 
     const init = function() {
         smoothScroll();
