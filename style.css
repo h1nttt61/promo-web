@@ -1,0 +1,301 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    background-color: #0a0a0a;
+    color: #ededed;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 0 20px;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 50% 50%, rgba(29, 26, 77, 0.4), transparent);
+    z-index: -1;
+}
+
+.hero-content {
+    text-align: center;
+    max-width: 900px;
+    z-index: 1;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero-content > * {
+    opacity: 0;
+    animation: fadeInUp 1s ease forwards;
+}
+
+.hello-h1 {
+    font-size: clamp(1.5rem, 5vw, 2.5rem);
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+    color: #cccccc;
+    animation-delay: 0.2s;
+}
+
+.names-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.name-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.name-h2 {
+    font-size: clamp(2rem, 7vw, 4rem);
+    font-weight: 700;
+    background: linear-gradient(45deg, #6EE7B7, #3B82F6, #9333EA);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.name-first {
+    animation-delay: 0.4s;
+}
+
+.name-second {
+    animation-delay: 0.6s;
+}
+
+.github-link {
+    color: #a1a1aa;
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    opacity: 0;
+    animation: fadeInUp 1s ease forwards;
+}
+
+.github-link.name-first {
+    animation-delay: 0.7s;
+}
+
+.github-link.name-second {
+    animation-delay: 0.8s;
+}
+
+.github-link:hover {
+    color: #3B82F6;
+    transform: translateY(-2px) scale(1.1);
+}
+
+.name-separator {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-weight: 300;
+    color: #a1a1aa;
+    margin: 0.5rem 0;
+    animation-delay: 0.5s;
+}
+
+.title-h3 {
+    font-size: clamp(1.5rem, 4vw, 2.2rem);
+    font-weight: 400;
+    margin-bottom: 2.5rem;
+    color: #a1a1aa;
+    animation-delay: 0.9s;
+}
+
+.description-p {
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 0 auto 3rem auto;
+    color: #d4d4d8;
+    animation-delay: 1s;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    animation-delay: 1.2s;
+}
+
+.btn {
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    display: inline-block;
+    border: 2px solid transparent;
+}
+
+.btn-primary {
+    background: linear-gradient(45deg, #3B82F6, #9333EA);
+    color: white;
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
+}
+
+.btn-outline {
+    border-color: #3B82F6;
+    color: #3B82F6;
+    background: transparent;
+}
+
+.btn-outline:hover {
+    background-color: rgba(59, 130, 246, 0.1);
+    transform: translateY(-3px);
+}
+
+.theme-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: rgba(59, 130, 246, 0.2);
+    border: 2px solid #3B82F6;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.theme-btn:hover {
+    background: rgba(59, 130, 246, 0.4);
+    transform: rotate(360deg);
+}
+
+@media (max-width: 768px) {
+    .names-container {
+        gap: 0.8rem;
+    }
+    
+    .name-wrapper {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .name-h2 {
+        font-size: clamp(1.8rem, 6vw, 3.5rem);
+    }
+    
+    .github-link {
+        font-size: clamp(1.2rem, 3vw, 1.8rem);
+    }
+    
+    .name-separator {
+        font-size: clamp(1.2rem, 3vw, 2rem);
+        margin: 0.3rem 0;
+    }
+    
+    .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .btn {
+        width: 220px;
+        text-align: center;
+    }
+    
+    .description-p {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .name-h2 {
+        font-size: clamp(1.5rem, 5vw, 2.5rem);
+    }
+    
+    .github-link {
+        font-size: clamp(1rem, 2.5vw, 1.5rem);
+    }
+    
+    .name-separator {
+        font-size: clamp(1rem, 2.5vw, 1.5rem);
+    }
+    
+    .name-wrapper {
+        gap: 0.3rem;
+    }
+    
+    .theme-btn {
+        top: 15px;
+        right: 15px;
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+}
+
+.fade-in {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 0.6s ease;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.light-theme {
+    background-color: #ffffff;
+    color: #0a0a0a;
+}
+
+.light-theme .hello-h1,
+.light-theme .name-separator,
+.light-theme .title-h3,
+.light-theme .description-p {
+    color: #4a4a4a;
+}
+
+.light-theme .github-link {
+    color: #666666;
+}
+
+.light-theme .github-link:hover {
+    color: #3B82F6;
+}
+
+.light-theme .theme-btn {
+    background: rgba(59, 130, 246, 0.1);
+    border-color: #3B82F6;
+    color: #3B82F6;
+}
