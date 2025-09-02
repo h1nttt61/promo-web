@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM полностью загружен');
+
     const smoothScroll = function() {
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -64,44 +66,85 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     const themeSwitcher = function() {
-    const themeButton = document.querySelector('.theme-btn');
+        const themeButton = document.querySelector('.theme-btn');
+        
+        if (!themeButton) {
+            console.error('Кнопка темы не найдена!');
+            return;
+        }
+        
+        const switchTheme = function() {
+            const isLightTheme = document.body.classList.contains('light-theme');
+            const targetTheme = !isLightTheme;
+            
+            document.body.classList.add('theme-transitioning');
+            requestAnimationFrame(() => {
+                if (targetTheme) {
+                    document.body.classList.add('light-theme');
+                    themeButton.innerHTML = '☀️';
+                } else {
+                    document.body.classList.remove('light-theme');
+                    themeButton.innerHTML = '🌙';
+                }
+                
+                localStorage.setItem('theme', targetTheme ? 'light' : 'dark');
+                
+                setTimeout(() => {
+                    document.body.classList.remove('theme-transitioning');
+                }, 500);
+            });
+        };
+        
+        themeButton.addEventListener('click', switchTheme);
+        
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'light') {
+            document.body.classList.add('light-theme');
+            themeButton.innerHTML = '☀️';
+        }
+    };
+
+   const setupContactButton = function() {
+    const contactBtn = document.getElementById('contact-btn');
+    const contactExpand = document.querySelector('.contact-expand');
+    const closeButton = document.querySelector('.close-telegram');
     
-    if (!themeButton) {
-        console.error('Кнопка темы не найдена!');
+    if (!contactBtn || !contactExpand || !closeButton) {
+        console.error('Не найдены элементы для кнопки контактов');
         return;
     }
     
+    console.log('Кнопка найдена, настраиваю...');
+    
+    contactBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        console.log('Кнопка нажата');
+        contactExpand.classList.add('expanded');
+    });
+    
 
-    const switchTheme = function() {
-        const isLightTheme = document.body.classList.contains('light-theme');
-        const targetTheme = !isLightTheme;
-        
+    closeButton.addEventListener('click', function(e) {
+        e.stopPropagation();
+        console.log('Закрываем меню по крестику');
+        contactExpand.classList.remove('expanded');
+    });
+    
 
-        document.body.classList.add('theme-transitioning');
-                requestAnimationFrame(() => {
-            if (targetTheme) {
-                document.body.classList.add('light-theme');
-                themeButton.innerHTML = '☀️';
-            } else {
-                document.body.classList.remove('light-theme');
-                themeButton.innerHTML = '🌙';
-            }
-            
-            localStorage.setItem('theme', targetTheme ? 'light' : 'dark');
-            
-            setTimeout(() => {
-                document.body.classList.remove('theme-transitioning');
-            }, 500);
+    document.addEventListener('click', function(e) {
+        if (contactExpand.classList.contains('expanded') && 
+            !contactExpand.contains(e.target)) {
+            console.log('Закрываем меню по клику вне');
+            contactExpand.classList.remove('expanded');
+        }
+    });
+    
+
+    const telegramButtons = document.querySelectorAll('.btn-telegram');
+    telegramButtons.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.stopPropagation();
         });
-    };
-    
-    themeButton.addEventListener('click', switchTheme);
-    
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'light') {
-        document.body.classList.add('light-theme');
-        themeButton.innerHTML = '☀️';
-    }
+    });
 };
 
     const init = function() {
@@ -110,6 +153,7 @@ document.addEventListener('DOMContentLoaded', function() {
         interactiveElements();
         visitCounter();
         themeSwitcher();
+        setupContactButton();
     };
 
     init();
