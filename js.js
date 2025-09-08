@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM полностью загружен');
 
     const smoothScroll = function() {
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -62,14 +61,12 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             localStorage.setItem('visitCount', '1');
         }
-        console.log('Количество посещений:', localStorage.getItem('visitCount'));
     };
 
     const themeSwitcher = function() {
         const themeButton = document.querySelector('.theme-btn');
         
         if (!themeButton) {
-            console.error('Кнопка темы не найдена!');
             return;
         }
         
@@ -110,7 +107,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const closeButton = document.querySelector('.close-telegram');
     
     if (!contactBtn || !contactExpand || !closeButton) {
-        console.error('Не найдены элементы для кнопки контактов');
         return;
     }
     
@@ -118,14 +114,12 @@ document.addEventListener('DOMContentLoaded', function() {
     
     contactBtn.addEventListener('click', function(e) {
         e.stopPropagation();
-        console.log('Кнопка нажата');
         contactExpand.classList.add('expanded');
     });
     
 
     closeButton.addEventListener('click', function(e) {
         e.stopPropagation();
-        console.log('Закрываем меню по крестику');
         contactExpand.classList.remove('expanded');
     });
     
